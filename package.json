@@ -1,0 +1,49 @@
+{
+  "name": "playwright-fixture-template",
+  "version": "0.1.0",
+  "description": "Playwright template repository with Page Object Model + Fixtures Pattern. Built so QA engineers (and Claude Code) can write robust E2E tests without falling into the beforeAll/afterAll fixture-scope pitfall.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev:app": "tsx watch examples/sample-app/index.ts",
+    "start:app": "tsx examples/sample-app/index.ts",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:debug": "PWDEBUG=1 playwright test",
+    "test:nightly": "cross-env PLAYWRIGHT_NIGHTLY=1 playwright test",
+    "test:report": "playwright show-report",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d app",
+    "docker:down": "docker compose down -v",
+    "test:docker": "docker compose --profile test run --rm tests",
+    "test:docker:debug": "docker compose --profile test run --rm -e DEBUG=pw:api tests",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "install:browsers": "playwright install --with-deps"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@playwright/test": "1.59.1",
+    "@types/node": "^22.10.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.17.0",
+    "eslint-plugin-playwright": "^2.1.0",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.0"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.14"
+  }
+}

@@ -1,0 +1,53 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/app.Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+    expose:
+      - "3000"
+    ports:
+      # Optional: expose to host so you can browse http://localhost:3000 manually.
+      # Comment out if you don't want to bind a host port.
+      - "3000:3000"
+    # Network alias gives the host a dotted name (`app.test`). Chromium 127+
+    # auto-upgrades single-label hostnames (like `app`) from http→https, which
+    # breaks tests against an HTTP-only SUT. The dotted alias avoids the upgrade.
+    networks:
+      default:
+        aliases:
+          - app.test
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+      start_period: 3s
+
+  tests:
+    build:
+      context: .
+      dockerfile: .docker/tests.Dockerfile
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      BASE_URL: http://app.test:3000
+      CI: "1"
+      PLAYWRIGHT_DISABLE_WEBSERVER: "1"
+    volumes:
+      # Mount results back to the host so QA engineers can open them.
+      - ./playwright-report:/workspace/playwright-report
+      - ./test-results:/workspace/test-results
+      - ./tests/.auth:/workspace/tests/.auth
+      # Named volume for node_modules — avoids host bind-mount clobbering
+      # native binaries when running on Windows / macOS.
+      - playwright_node_modules:/workspace/node_modules
+    init: true
+    ipc: host           # Recommended for Chromium to avoid /dev/shm crashes.
+    profiles: ["test"]  # Don't start `tests` on `docker compose up`; explicit only.
+
+volumes:
+  playwright_node_modules:

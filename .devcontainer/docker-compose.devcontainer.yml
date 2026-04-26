@@ -1,0 +1,9 @@
+# Override applied on top of ../docker-compose.yml when opened as a Dev Container.
+# Keeps the `tests` service running idle so VS Code can attach a shell.
+services:
+  tests:
+    profiles: []                  # Drop the "test" profile so devcontainer starts it automatically.
+    command: ["sleep", "infinity"]
+    volumes:
+      - ..:/workspace:cached      # Live bind-mount of the workspace.
+      - playwright_node_modules:/workspace/node_modules   # Keep deps in the named volume.
