@@ -1,0 +1,60 @@
+name: ❓ 質問 (Question)
+description: 書籍 (Zenn books) やテンプレ・サンプルテストについての質問
+title: "[Q] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        質問ありがとうございます!回答が他の人にも役立つよう、可能な範囲で背景も書いてもらえると助かります。
+        書籍はこちら: <https://zenn.dev/yuden/books/playwright-pom-fixtures-ai-era>
+
+  - type: dropdown
+    id: source
+    attributes:
+      label: 質問の対象
+      options:
+        - 書籍 (Zenn books) の内容について
+        - テンプレートコード / サンプルテストについて
+        - 設計判断や方針について (なぜそう書いたのか系)
+        - 自社プロジェクトへの応用について
+        - その他
+    validations:
+      required: true
+
+  - type: input
+    id: chapter
+    attributes:
+      label: 該当する章 / セクション (書籍についての質問の場合)
+      placeholder: "例: 第 5 章 beforeAll/afterAll の罠 / docs/multi-role-auth.md"
+    validations:
+      required: false
+
+  - type: input
+    id: file
+    attributes:
+      label: 該当ファイル (コードについての質問の場合)
+      placeholder: "例: fixtures/auth.ts , examples/tests/specs/04-api-login.spec.ts"
+    validations:
+      required: false
+
+  - type: textarea
+    id: question
+    attributes:
+      label: 質問
+      placeholder: |
+        例: switchUser を実行した後、古い BrowserContext は明示的に閉じなくていいのでしょうか?
+            メモリが心配です。
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: 自分で調べたこと / 試したこと
+      description: なくても OK ですが、書いてもらえると回答の精度が上がります
+      placeholder: |
+        - docs/multi-role-auth.md を読みました
+        - context.close() を試してみたら ... という挙動になりました
+    validations:
+      required: false

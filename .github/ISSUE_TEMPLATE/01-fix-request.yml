@@ -1,0 +1,80 @@
+name: 🛠 修正依頼 (Fix request)
+description: リポジトリの構成・テンプレートコード・サンプルテスト・ドキュメントなどの不具合や改善依頼
+title: "[Fix] "
+labels: ["fix"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        テンプレートやサンプルコードの不具合・改善提案ありがとうございます。
+        できるだけ具体的に書いてもらえると修正の判断が早くなります。
+
+  - type: dropdown
+    id: target
+    attributes:
+      label: 対象
+      description: どこの修正を依頼しますか?
+      options:
+        - フレームワーク本体 (fixtures/ , pages/base-page.ts , playwright.config.ts , eslint.config.mjs など)
+        - examples/ 配下のデモ (sample-app, demo PageObjects, demo tests)
+        - Docker / Dev Container 関連 (docker-compose.yml, .docker/, .devcontainer/)
+        - Claude Code 関連 (CLAUDE.md, .claude/skills/, .claude/settings.json)
+        - GitHub Actions ワークフロー (.github/workflows/)
+        - ドキュメント (docs/, README.md)
+        - その他
+    validations:
+      required: true
+
+  - type: input
+    id: file
+    attributes:
+      label: 該当ファイル / パス
+      placeholder: "例: fixtures/worker-fixtures.ts , examples/tests/specs/05-multi-role.spec.ts"
+    validations:
+      required: false
+
+  - type: textarea
+    id: current
+    attributes:
+      label: 現状の挙動 / 問題
+      description: 今どう動いていて何が困るか
+      placeholder: |
+        例: docker compose --profile test run --rm tests を実行すると ... のエラーで落ちる
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期待する挙動 / 修正案
+      placeholder: 例: workerApp の teardown で context.close() を呼ぶようにすべきでは
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: 再現手順 (該当する場合)
+      placeholder: |
+        1. git clone ...
+        2. docker compose ...
+        3. ...
+      render: shell
+    validations:
+      required: false
+
+  - type: input
+    id: env
+    attributes:
+      label: 動作環境 (該当する場合)
+      placeholder: "例: macOS 14.5 + OrbStack 1.6 / Windows 11 + Docker Desktop 4.30"
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: 補足
+      placeholder: ログ / スクリーンショット / 関連リンクなど
+    validations:
+      required: false

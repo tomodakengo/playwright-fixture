@@ -1,0 +1,38 @@
+name: 💬 その他 (Other comments / opinions)
+description: 感想・意見・要望・議論したいトピックなど
+title: "[Other] "
+labels: ["discussion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感想や意見、議論したいことありがとうございます。雑談的なトピックも歓迎です。
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 内容の種類
+      options:
+        - 感想 / フィードバック
+        - 機能要望 / 追加してほしいパターン
+        - 議論したいトピック (設計・運用・AI 連携など)
+        - 紹介・宣伝 (関連リポジトリ / 記事 / イベントなど)
+        - その他
+    validations:
+      required: true
+
+  - type: textarea
+    id: body
+    attributes:
+      label: 内容
+      placeholder: 自由に書いてください
+    validations:
+      required: true
+
+  - type: textarea
+    id: links
+    attributes:
+      label: 関連リンク (任意)
+      placeholder: 参考になる記事 / リポジトリ / 過去 issue など
+    validations:
+      required: false

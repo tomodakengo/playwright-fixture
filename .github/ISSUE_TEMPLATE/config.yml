@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📕 書籍 (Zenn books)
+    url: https://zenn.dev/yuden/books/playwright-pom-fixtures-ai-era
+    about: 「QAエンジニアのためのAI時代Playwright実践ガイド」を読む
+  - name: 📝 元記事 — auto-heal pipeline
+    url: https://zenn.dev/yuden/articles/playwright-auto-heal-claude-code
+    about: 第 9 章のベースになった記事
+  - name: 📝 元記事 — fixtures 設計
+    url: https://zenn.dev/yuden/articles/4d0965b2ced877
+    about: 第 3-4 章のベースになった記事
