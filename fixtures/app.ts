@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import type { BrowserContext, Page } from '@playwright/test';
 
 /**
  * Base App facade.
@@ -25,9 +25,30 @@ import type { Page } from '@playwright/test';
  *   ```
  */
 export class App {
+  /** Extra BrowserContexts opened mid-test (e.g. by `switchUser`). */
+  private readonly switchedContexts: BrowserContext[] = [];
+
   constructor(protected readonly getPage: () => Page) {}
 
   get page(): Page {
     return this.getPage();
+  }
+
+  /**
+   * Register a BrowserContext opened mid-test so the `app` fixture can close it
+   * during teardown. Contexts created via `browser.newContext()` are NOT
+   * auto-closed by Playwright the way the built-in `context` fixture is — they
+   * leak until the whole Browser closes unless you close them yourself.
+   */
+  protected trackContext(context: BrowserContext): void {
+    this.switchedContexts.push(context);
+  }
+
+  /** Close every context registered via `trackContext`. Called by the `app` fixture. */
+  async closeSwitchedContexts(): Promise<void> {
+    while (this.switchedContexts.length > 0) {
+      const context = this.switchedContexts.pop();
+      await context?.close();
+    }
   }
 }
