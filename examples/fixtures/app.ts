@@ -23,6 +23,7 @@ export class App extends BaseApp {
   admin = () => new AdminPage(this.getPage());
 
   async switchUser(role: RoleName): Promise<void> {
-    await switchUserImpl(this.getPage().context(), role);
+    const newContext = await switchUserImpl(this.getPage().context(), role);
+    this.trackContext(newContext);
   }
 }

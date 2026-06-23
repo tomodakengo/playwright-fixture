@@ -27,6 +27,9 @@ const appTest = base.extend<TestFixtures>({
       const app = new App(currentPage);
       store.app = app;
       await use(app);
+      // Close any extra contexts opened mid-test via `app.switchUser` —
+      // browser.newContext() contexts are not auto-collected by Playwright.
+      await app.closeSwitchedContexts();
       store.app = null;
       setPage(null);
     },
