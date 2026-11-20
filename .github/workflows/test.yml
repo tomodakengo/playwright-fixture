@@ -19,6 +19,20 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
 
+  po-cli-smoke:
+    needs: lint-and-typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run po-cli:smoke
+
   test:
     needs: lint-and-typecheck
     runs-on: ubuntu-latest

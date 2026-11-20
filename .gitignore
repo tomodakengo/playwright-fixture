@@ -33,3 +33,9 @@ docker-compose.override.yml
 
 # Devcontainer scratch directories
 .devcontainer/.cache/
+
+# po-cli sessions and logs (scripts/po-cli)
+.po-cli/
+
+# playwright-cli snapshots and logs
+.playwright-cli/

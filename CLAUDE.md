@@ -87,6 +87,8 @@ After adding a new PageObject, register it on the App (`fixtures/app.ts` for use
 - `npm run lint:fix` — ESLint with auto-fix
 - `npm run typecheck` — `tsc --noEmit`
 - `npm run dev:app` — start the Hono app standalone (for manual debugging on http://localhost:3000)
+- `npm run -s po-cli -- <command>` — call PageObjects from the shell on a browser shared with playwright-cli (see `docs/po-cli.md` and the `use-po-cli` skill)
+- `npm run po-cli:smoke` — check po-cli still works after a Playwright upgrade
 
 ## Docker / Dev Container
 
@@ -124,3 +126,4 @@ Commands:
 - `docs/how-to-add-page-object.md` — step-by-step PageObject recipe
 - `docs/how-to-write-test.md` — canonical test shape
 - `docs/troubleshooting.md` — common failures and fixes
+- `docs/po-cli.md` — calling PageObjects from the shell (in-browser checks during development)
