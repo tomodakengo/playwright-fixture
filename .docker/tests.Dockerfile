@@ -2,7 +2,7 @@
 # Browsers are pre-installed at /ms-playwright (no `playwright install` needed).
 #
 # IMPORTANT: keep this version in sync with @playwright/test in package.json.
-FROM mcr.microsoft.com/playwright:v1.59.1-noble
+FROM mcr.microsoft.com/playwright:v1.60.0-noble
 
 WORKDIR /workspace
 
