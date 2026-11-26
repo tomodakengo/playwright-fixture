@@ -7,7 +7,7 @@ The pattern follows yuden's article ([Zenn: テストコードに集中するた
 - A worker-scope escape hatch (`workerApp` / `workerPage`) so `beforeAll` is still possible when truly needed
 - ESLint rules that catch the most common mistakes before runtime
 - A small bundled Hono demo app under `src/app/` so `git clone && npm install && npm test` works out of the box
-- Six Claude Code Skills (under `.claude/skills/`) that let Claude Code add page objects, write tests, set up auth, and debug flakes — without violating the project conventions
+- Seven Claude Code Skills (under `.claude/skills/`) that let Claude Code add page objects, write tests, set up auth, debug flakes, and check changes in the browser — without violating the project conventions
 
 ## Quick start — pick one
 
@@ -79,7 +79,7 @@ with `npm run test:report` (host) or by opening `playwright-report/index.html`.
 
 ```
 == framework (keep) ===========================================================
-.claude/skills/             Six Claude Code Skills (PageObject, test, fixture, auth, beforeAll, debug)
+.claude/skills/             Seven Claude Code Skills (PageObject, test, fixture, auth, beforeAll, debug, po-cli)
 .devcontainer/              VS Code / Codespaces dev container config
 .docker/                    Dockerfiles for `app` (Hono demo) and `tests` (Playwright)
 .github/workflows/          GitHub Actions CI (PR + nightly cross-browser)
@@ -164,6 +164,7 @@ npm run typecheck       # tsc --noEmit
 npm run format          # Prettier write
 
 npm run dev:app         # start the demo Hono app on :3000 (manual debugging, host)
+npm run -s po-cli -- help   # call PageObjects from the shell (docs/po-cli.md)
 
 # Docker
 npm run test:docker     # run all tests inside docker-compose
