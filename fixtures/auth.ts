@@ -63,10 +63,16 @@ export async function loginViaApi(
  * `tests/.auth/<role>.json`, and route the test's `app` facade through the
  * new page. Use this when you need to switch user mid-test.
  *
- * The previous context is intentionally left open — Playwright tears it down
- * at test end. If you need explicit cleanup, do it yourself.
+ * Returns the newly created BrowserContext so the caller can close it. The
+ * demo App (`examples/fixtures/app.ts`) registers it via `trackContext`, and
+ * the `app` fixture closes it at teardown — Playwright does NOT auto-close
+ * contexts created with `browser.newContext()`, so leaving them open leaks one
+ * context (and its page/process) per `switchUser` call until the Browser exits.
  */
-export async function switchUser(context: BrowserContext, role: string): Promise<void> {
+export async function switchUser(
+  context: BrowserContext,
+  role: string,
+): Promise<BrowserContext> {
   const browser = context.browser();
   if (!browser) {
     throw new Error('switchUser requires a Browser instance (none attached to context).');
@@ -74,4 +80,5 @@ export async function switchUser(context: BrowserContext, role: string): Promise
   const newContext = await browser.newContext({ storageState: storageStatePath(role) });
   const newPage = await newContext.newPage();
   setPage(newPage);
+  return newContext;
 }

@@ -22,7 +22,10 @@ export async function loginViaApi(
   await baseLoginViaApi(request, context, { username, password });
 }
 
-/** Type-safe demo wrapper. */
-export async function switchUser(context: BrowserContext, role: RoleName): Promise<void> {
-  await baseSwitchUser(context, role);
+/** Type-safe demo wrapper. Returns the new context so the App can close it. */
+export async function switchUser(
+  context: BrowserContext,
+  role: RoleName,
+): Promise<BrowserContext> {
+  return baseSwitchUser(context, role);
 }

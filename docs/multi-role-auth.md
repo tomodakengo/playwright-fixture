@@ -85,7 +85,7 @@ test('admin can approve standard user actions', async ({ app }) => {
 
 How it works: `switchUser` opens `browser.newContext({ storageState: storageStatePath(role) })`, creates a new Page, and calls `setPage(newPage)` on the `store.ts` singleton. The `App` facade reads its Page through `currentPage()`, so subsequent `app.<area>()` calls automatically get PageObjects bound to the new page. You don't have to thread a new variable through your test.
 
-The previous context is left open (Playwright tears it down at test end). If you need explicit cleanup, capture and close it yourself.
+Cleanup: each switch opens a real extra `BrowserContext`, and Playwright does **not** auto-close contexts created via `browser.newContext()`. `app.switchUser` registers the new context via `trackContext`, and the `app` fixture closes all of them in its teardown (`app.closeSwitchedContexts()`). So you get the convenience of one-line switching without leaking a context per call.
 
 ## Pattern 4 — Drive the login form
 
